@@ -7,7 +7,7 @@ This project simulates a cyberattack inside a virutal network build using GNS3. 
 - Learn how to configure and use IDS (Intrusion Detection Systems)
 - Document findings in a professional and structured way
 
-## Tools & Technologiea 
+## Tools & Technologies 
 - GNS3
 - Kali Linux (attacker)
 - VyOS (router)
