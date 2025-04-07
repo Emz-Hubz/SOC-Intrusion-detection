@@ -28,3 +28,8 @@ Internet connectivity was confirmed by:
 - Pinging a public DNS server: `ping 8.8.8.8`
 - Resolving DNS and reaching external websites: `ping google.com`
 See screenshot: `screenshots/Internet access Kali.png`
+
+## Network Topology
+The following diagram represents the virtual network setup used in this project:
+
+![Network Topology](topology/Topology.png)
