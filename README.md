@@ -33,3 +33,54 @@ See screenshot: `screenshots/Internet access Kali.png`
 The following diagram represents the virtual network setup used in this project:
 
 ![Network Topology](topology/Topology.png)
+
+## Suricata Setup and Rule Test
+-Installed suricata: sudo apt install suricata 
+- Configured it to listen on the correct interface (`ens3`):
+  ```yaml
+  af-packet:
+    - interface: ens3
+  ```
+
+- Restarted Suricata:
+  ```bash
+  sudo systemctl restart suricata
+  ```
+
+- Verified status:
+  ```bash
+  sudo systemctl status suricata
+  ```
+
+### Step 2 – Test rules with testmyids.com
+
+- Updated rule set:
+  ```bash
+  sudo apt install suricata-update -y
+  sudo suricata-update
+  ```
+
+- Verified that the default rule file is enabled:
+  ```yaml
+  rule-files:
+    - suricata.rules
+  ```
+
+- Restarted Suricata again:
+  ```bash
+  sudo systemctl restart suricata
+  ```
+
+- Triggered a test alert:
+  ```bash
+  curl http://testmyids.com
+  ```
+
+- Monitored logs:
+  ```bash
+  sudo tail -f /var/log/suricata/fast.log
+  ```
+
+- Verified detection:
+  ```
+  GPL ATTACK_RESPONSE id check returned root
