@@ -35,7 +35,19 @@ The following diagram represents the virtual network setup used in this project:
 ![Network Topology](topology/Topology.png)
 
 ## Suricata Setup and Rule Test
--Installed suricata: sudo apt install suricata 
+
+### Step 1 – Configure Suricata
+
+- Installed Suricata:
+  ```bash
+  sudo apt install suricata -y
+  ```
+
+- Edited the main configuration file:
+  ```bash
+  sudo nano /etc/suricata/suricata.yaml
+  ```
+
 - Configured it to listen on the correct interface (`ens3`):
   ```yaml
   af-packet:
@@ -84,3 +96,4 @@ The following diagram represents the virtual network setup used in this project:
 - Verified detection:
   ```
   GPL ATTACK_RESPONSE id check returned root
+  ```
