@@ -1,0 +1,23 @@
+# This file is generated from information provided by the datasource.  Changes
+# to it will not persist across an instance reboot.  To disable cloud-init's
+# network configuration capabilities, write a file
+# /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg with the following:
+# network: {config: disabled}
+network:
+    ethernets: 
+        ens3:
+           addresses:
+           - 10.0.X.X/24
+           dhcp6: false
+           routes:
+           - to: default
+             via: 10.0.X.X
+           nameservers:
+               addresses:
+               - 10.0.X.X
+               - 8.8.8.8
+        ens4:
+           dhcp4: no
+           optional: true
+    version: 2
+
