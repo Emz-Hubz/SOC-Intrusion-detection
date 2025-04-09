@@ -1,0 +1,5 @@
+04/08/2025-11:59:47.343922  [**] [1:2100498:7] GPL ATTACK_RESPONSE id check returned root [**] [Classification: Potentially Bad Traffic] [Priority: 2] {TCP} 217.160.0.187:80 -> 10.0.X.X:42788
+04/08/2025-12:02:01.989429  [**] [1:2100498:7] GPL ATTACK_RESPONSE id check returned root [**] [Classification: Potentially Bad Traffic] [Priority: 2] {TCP} 217.160.0.187:80 -> 10.0.X.X:46020
+04/08/2025-12:52:36.884550  [**] [1:2013504:6] ET INFO GNU/Linux APT User-Agent Outbound likely related to package management [**] [Classification: Not Suspicious Traffic] [Priority: 3] {TCP} 10.0.X.X:40666 -> 91.189.91.83:80
+04/09/2025-11:21:03.391075  [**] [1:2210045:2] SURICATA STREAM Packet with invalid ack [**] [Classification: Generic Protocol Command Decode] [Priority: 3] {TCP} 10.0.X.X:443 -> 10.0.X.X:34175
+04/09/2025-11:21:03.391075  [**] [1:2210046:2] SURICATA STREAM SHUTDOWN RST invalid ack [**] [Classification: Generic Protocol Command Decode] [Priority: 3] {TCP} 10.0.X.X:443 -> 10.0.X.X:34175
