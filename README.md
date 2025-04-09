@@ -43,8 +43,8 @@ The project demonstrates applied networking skills in configuring segmented IP n
 - Assigning static IPs to interfaces on Kali and Ubuntu using `nmtui` and `netplan`
 - Configuring VyOS interfaces:
   - eth0: DHCP for outbound Internet (NAT)
-  - eth1: 10.0.1.1/24 (LAN to Kali)
-  - eth2: 10.0.2.1/24 (LAN to Ubuntu)
+  - eth1: 10.0.X.X/24 (LAN to Kali)
+  - eth2: 10.0.X.X/24 (LAN to Ubuntu)
 - Enabling NAT masquerading on VyOS to route internal traffic:
 ```bash
 configure
