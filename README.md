@@ -102,6 +102,7 @@ SOC-Intrusion-detection/
 │   └── 50-cloud-init.yaml (optional)
 └── logs/ (optional sample Suricata logs)
 ```
+Note: Configuration and log files are uploaded with the .txt extension to ensure compatibility with GitHub's web interface. Internal IP addresses have been masked (e.g., 10.0.X.X) for privacy and security.
 
 ## Lessons Learned
 
