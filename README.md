@@ -114,7 +114,7 @@ Note: Configuration and log files are uploaded with the .txt extension to ensure
 ## Resources
 
 - https://suricata.io/docs/
-- https://docs.vyos.io/en/latest/configuration/nat/
+- https://docs.vyos.io/en/sagitta/configuration/index.html
 - https://docs.gns3.com
 
 ## Key Commands Used
