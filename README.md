@@ -34,7 +34,7 @@ Kali        Ubuntu (Suricata)
 
 An additional passive monitoring interface (`ens4`) was added to the server to allow Suricata to capture mirrored traffic between Kali and VyOS via a virtual hub.
 
-![Network Topology](images/Topology.png)
+
 
 ## Network Configuration and Routing
 
