@@ -1,13 +1,17 @@
 # SOC-Intrusion Detection Simulation
 
-This project simulates a cyberattack inside a virutal network build using GNS3. The goal is to demonstrate how a SOC analyst detects and responds to threats using open-sourve tools.
+This project simulates a cyberattack inside a virtual network built using GNS3. The goal is to demonstrate how a SOC analyst detects and responds to threats using open-source tools.
 
-## Purpose 
+---
+
+## Purpose
+
 - Practise offensive and defensive cybersecurity techniques
 - Learn how to configure and use IDS (Intrusion Detection Systems)
 - Document findings in a professional and structured way
 
-## Tools & Technologies 
+## Tools & Technologies
+
 - GNS3
 - Kali Linux (attacker)
 - VyOS (router)
@@ -15,85 +19,143 @@ This project simulates a cyberattack inside a virutal network build using GNS3. 
 - Suricata (IDS)
 - Wireshark
 
-## Network Topology (planned)
-Kali Linux (attacker) ↔ VyOS Router ↔ Ubuntu Server (Suricata)
-
-## Internet access verification(Kali VM)
-During the initial setup, the Kali Linux virtual machine was connected to a GNS3 NAT interface (int2) to enable internet access for updates and package installations.
-
-After switching the network interface to DHCP and restarting the connection using `nmtui`, the machine received a dynamic IP address from the NAT range (`192.168.122.144/24`).
-
-Internet connectivity was confirmed by:
-- Verifying the IP address with `ip a`
-- Pinging a public DNS server: `ping 8.8.8.8`
-- Resolving DNS and reaching external websites: `ping google.com`
-See screenshot: `screenshots/Internet access Kali.png`
+---
 
 ## Network Topology
-The following diagram represents the virtual network setup used in this project:
 
-![Network Topology](topology/Topology.png)
+```
+Kali-attacker  <-->  VyOS Router  <-->  Ubuntu Server (Suricata)
+                           |
+                         (NAT)
+```
 
-## Suricata Setup and Rule Test
+---
 
-### Step 1 – Configure Suricata
+## Internet Access (Kali)
+
+During setup, Kali was temporarily connected to a NAT interface to update packages.
+
+Steps:
+
+- Connected Kali to NAT (`int2`) in GNS3
+- Used `nmtui` to enable DHCP and received IP from `192.168.122.0/24`
+- Verified with:
+  - `ip a`
+  - `ping 8.8.8.8`
+  - `ping google.com`
+
+---
+
+## Suricata IDS Setup (Ubuntu Server)
+
+### Step 1: Initial Setup
 
 - Installed Suricata:
+
   ```bash
   sudo apt install suricata -y
   ```
 
-- Edited the main configuration file:
+- Edited config:
+
   ```bash
   sudo nano /etc/suricata/suricata.yaml
   ```
 
-- Configured it to listen on the correct interface (`ens3`):
+- Set interface to sniff traffic (initially):
+
   ```yaml
   af-packet:
     - interface: ens3
   ```
 
 - Restarted Suricata:
+
   ```bash
   sudo systemctl restart suricata
   ```
 
-- Verified status:
-  ```bash
-  sudo systemctl status suricata
-  ```
+### Step 2: Rule Update & Test
 
-### Step 2 – Test rules with testmyids.com
+- Installed updater:
 
-- Updated rule set:
   ```bash
   sudo apt install suricata-update -y
   sudo suricata-update
   ```
 
-- Verified that the default rule file is enabled:
+- Ensured default ruleset:
+
   ```yaml
   rule-files:
     - suricata.rules
   ```
 
-- Restarted Suricata again:
-  ```bash
-  sudo systemctl restart suricata
-  ```
+- Verified detection by accessing:
 
-- Triggered a test alert:
   ```bash
   curl http://testmyids.com
   ```
 
-- Monitored logs:
+- Checked logs:
+
   ```bash
   sudo tail -f /var/log/suricata/fast.log
   ```
 
-- Verified detection:
-  ```
-  GPL ATTACK_RESPONSE id check returned root
-  ```
+---
+
+## Installation & Configuration
+
+### VyOS Router
+
+- NAT masquerading configured on `eth0` (external interface)
+- Internal routing between segments `10.0.1.0/24` and `10.0.2.0/24`
+
+### Ubuntu Server (24.04)
+
+- Suricata installed via APT
+- Listening on `ens4` (connected to hub)
+- Configured with `HOME_NET: [10.0.0.0/16]`
+
+### Kali Linux
+
+- Used to simulate attacks (`nmap -sS`, `curl http://testmyids.com`)
+
+---
+
+## Attack Simulation Results
+
+### IDS test with testmyids.com
+
+- Command: `curl http://testmyids.com`
+- Triggered `GPL ATTACK_RESPONSE` rule in `/var/log/suricata/fast.log`
+
+### SYN-scan from Kali
+
+- Initially no alerts (all ports closed)
+- After running `nc -lvnp 80` on server + `nmap -sS` from Kali:
+- Alert triggered: `SURICATA STREAM SHUTDOWN RST invalid ack`
+
+---
+
+## Scripts for Automation
+
+Located in `scripts/setup/`:
+
+- `fix_suricata_nmap_rules.sh`
+  - Uncomments and formats Nmap-related rules in `suricata.rules`
+
+- `update_suricata_interface.sh`
+  - Detects PROMISC-mode interfaces and updates `suricata.yaml` accordingly
+
+---
+
+## Troubleshooting Tips
+
+- Suricata must run on an interface in **PROMISC mode** to sniff via hub
+- Verify `HOME_NET` is correctly set (e.g., `10.0.0.0/16`)
+- SYN-scans require **open ports** to trigger stream-related alerts
+- Rules in `suricata.rules` must be uncommented and correctly formatted
+
+
