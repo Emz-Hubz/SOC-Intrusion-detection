@@ -1,0 +1,19 @@
+# ISO- och diskavbilder
+*.iso
+*.qcow2
+
+# Loggfiler och tillfälliga filer
+*.log
+*.tmp
+*.swp
+
+# Python-cache om du lägger till skript senare
+__pycache__/
+*.pyc
+
+# Systemspecifika filer
+.DS_Store
+
+# Editorfiler
+.idea/
+.vscode/
