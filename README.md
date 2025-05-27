@@ -1,5 +1,5 @@
 # SOC – Intrusion Detection Simulation
-
+This lab is currently under development.
 This project simulates a cyberattack within a virtualized network environment using GNS3, with the goal of detecting the intrusion using Suricata IDS. It is designed to demonstrate a typical workflow for a SOC analyst: monitoring, detecting, and analyzing malicious traffic in a segmented network.
 
 ## Purpose
